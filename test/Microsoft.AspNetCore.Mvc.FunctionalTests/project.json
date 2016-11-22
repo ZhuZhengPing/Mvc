@@ -17,6 +17,7 @@
     "ControllersFromServicesWebSite": "1.0.0",
     "CorsWebSite": "1.0.0",
     "dotnet-test-xunit": "2.2.0-*",
+    "EnumDisplay": "1.0.0",
     "ErrorPageMiddlewareWebSite": "1.0.0",
     "FilesWebSite": "1.0.0",
     "FiltersWebSite": "1.0.0",

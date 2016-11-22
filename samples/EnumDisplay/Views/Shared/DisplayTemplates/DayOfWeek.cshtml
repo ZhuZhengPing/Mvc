@@ -1,0 +1,26 @@
+﻿@model EnumDisplay.Controllers.DayOfWeek
+
+@switch (Model)
+{
+    case EnumDisplay.Controllers.DayOfWeek.Monday:
+        <text>Maandag</text>
+        break;
+    case EnumDisplay.Controllers.DayOfWeek.Tuesday:
+        <text>Dinsdag</text>
+        break;
+    case EnumDisplay.Controllers.DayOfWeek.Wednesday:
+        <text>Woensdag</text>
+        break;
+    case EnumDisplay.Controllers.DayOfWeek.Thursday:
+        <text>Donderdag</text>
+        break;
+    case EnumDisplay.Controllers.DayOfWeek.Friday:
+        <text>Vrijdag</text>
+        break;
+    case EnumDisplay.Controllers.DayOfWeek.Saturday:
+        <text>Zaterdag</text>
+        break;
+    case EnumDisplay.Controllers.DayOfWeek.Sunday:
+        <text>Zondag</text>
+        break;
+}
