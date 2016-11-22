@@ -15,6 +15,8 @@ namespace Microsoft.AspNetCore.Mvc.Rendering
 {
     public class HtmlHelperDisplayExtensionsTest
     {
+
+
         [Fact]
         public void DisplayHelpers_FindsModel_WhenViewDataIsNotSet()
         {
@@ -92,6 +94,94 @@ namespace Microsoft.AspNetCore.Mvc.Rendering
 
             // Assert
             viewEngine.Verify();
+        }
+
+        public static TheoryData<FormatModel, string> DisplayFormatModels
+        {
+            get
+            {
+                return new TheoryData<FormatModel, string>
+                {
+                    {
+                        new FormatModel{ FormatProperty = Status.Created},
+                        "Value: CreatedKey"
+                    },
+                    {
+                        new FormatModel { FormatProperty = Status.Done},
+                        "Value: Done"
+                    }
+                };
+            }
+        }
+
+        public static TheoryData<FormatModel, string> DisplayUnformatedModels
+        {
+            get
+            {
+                return new TheoryData<FormatModel, string>
+                {
+                    {
+                        new FormatModel {NonFormatProperty = Status.Created },
+                        "CreatedKey"
+                    },
+                    {
+                        new FormatModel {NonFormatProperty = Status.Done },
+                        "Done"
+                    }
+                };
+            }
+        }
+
+        [Theory]
+        [MemberData(nameof(DisplayUnformatedModels))]
+        public void Display_UsesTemplateUnFormated(FormatModel model, string expectedResult)
+        {
+            // Arrange
+            var view = new Mock<IView>();
+            view.Setup(v => v.RenderAsync(It.IsAny<ViewContext>()))
+                .Callback((ViewContext v) => v.Writer.WriteAsync(v.ViewData.TemplateInfo.FormattedModelValue.ToString()))
+                .Returns(Task.FromResult(0));
+            var viewEngine = new Mock<ICompositeViewEngine>(MockBehavior.Strict);
+            viewEngine
+                .Setup(v => v.GetView(/*executingFilePath*/ null, It.IsAny<string>(), /*isMainPage*/ false))
+                .Returns(ViewEngineResult.NotFound(string.Empty, Enumerable.Empty<string>()));
+            viewEngine
+                .Setup(v => v.FindView(It.IsAny<ActionContext>(), "DisplayTemplates/Status", /*isMainPage*/ false))
+                .Returns(ViewEngineResult.Found("Status", view.Object))
+                .Verifiable();
+            var helper = DefaultTemplatesUtilities.GetHtmlHelper(model, viewEngine.Object);
+
+            // Act
+            var displayResult = helper.DisplayFor(x => x.NonFormatProperty);
+
+            // Assert
+            Assert.Equal(expectedResult, HtmlContentUtilities.HtmlContentToString(displayResult));
+        }
+
+        [Theory]
+        [MemberData(nameof(DisplayFormatModels))]
+        public void Display_UsesTemplateFormated(FormatModel model, string expectedResult)
+        {
+            // Arrange
+            var view = new Mock<IView>();
+            view.Setup(v => v.RenderAsync(It.IsAny<ViewContext>()))
+                .Callback((ViewContext v) => v.Writer.WriteAsync(v.ViewData.TemplateInfo.FormattedModelValue.ToString()))
+                .Returns(Task.FromResult(0));
+            var viewEngine = new Mock<ICompositeViewEngine>(MockBehavior.Strict);
+            viewEngine
+                .Setup(v => v.GetView(/*executingFilePath*/ null, It.IsAny<string>(), /*isMainPage*/ false))
+                .Returns(ViewEngineResult.NotFound(string.Empty, Enumerable.Empty<string>()));
+            viewEngine
+                .Setup(v => v.FindView(It.IsAny<ActionContext>(), "DisplayTemplates/Status", /*isMainPage*/ false))
+                .Returns(ViewEngineResult.Found("Status", view.Object))
+                .Verifiable();
+            var helper = DefaultTemplatesUtilities.GetHtmlHelper(model, viewEngine.Object);
+
+            // Act
+            var displayResult = helper.DisplayFor(x => x.FormatProperty);
+
+            // Assert
+            Assert.Equal(expectedResult, HtmlContentUtilities.HtmlContentToString(displayResult));
         }
 
         [Fact]
@@ -423,6 +513,14 @@ namespace Microsoft.AspNetCore.Mvc.Rendering
             Assert.Equal("SomeField", HtmlContentUtilities.HtmlContentToString(displayResult));
         }
 
+        public class FormatModel
+        {
+            [DisplayFormat(DataFormatString = "Value: {0}")]
+            public Status FormatProperty { get; set; }
+
+            public Status NonFormatProperty { get; set; }
+        }
+
         private class SomeModel
         {
             public string SomeProperty { get; set; }
@@ -438,7 +536,7 @@ namespace Microsoft.AspNetCore.Mvc.Rendering
             public static string FaultedKey { get { return "Faulted from ResourceType"; } }
         }
 
-        private enum Status : byte
+        public enum Status : byte
         {
             [Display(Name = "CreatedKey")]
             Created,

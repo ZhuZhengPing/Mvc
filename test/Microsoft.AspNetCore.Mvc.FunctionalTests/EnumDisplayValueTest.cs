@@ -7,10 +7,10 @@ using Xunit;
 
 namespace Microsoft.AspNetCore.Mvc.FunctionalTests
 {
-    public class EnumDisplayValueTest : IClassFixture<MvcSampleFixture<EnumDisplay.Startup>>
+    public class EnumDisplayValueTest : IClassFixture<MvcTestFixture<EnumDisplay.Startup>>
     {
 
-        public EnumDisplayValueTest(MvcSampleFixture<EnumDisplay.Startup> fixture)
+        public EnumDisplayValueTest(MvcTestFixture<EnumDisplay.Startup> fixture)
         {
             Client = fixture.Client;
         }
