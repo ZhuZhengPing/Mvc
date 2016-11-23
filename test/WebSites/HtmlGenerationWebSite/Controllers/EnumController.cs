@@ -1,34 +1,10 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+
 using Microsoft.AspNetCore.Mvc;
 
-namespace EnumDisplay.Controllers
+namespace HtmlGenerationWebSite.Controllers
 {
-    public class AClass
-    {
-        public DayOfWeek DayOfWeek { get; set; }
-        [DisplayFormat(DataFormatString = "Month: {0}")]
-        public Month Month { get; set; }
-    }
-
-    public enum Month
-    {
-        [Display(Name = "January")]
-        FirstOne,
-        LastOne
-    }
-
-    public enum DayOfWeek
-    {
-        Monday,
-        Tuesday,
-        Wednesday,
-        Thursday,
-        Friday,
-        Saturday,
-        Sunday
-    }
-
     public class EnumController : Controller
     {
         public IActionResult Index()

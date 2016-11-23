@@ -15,8 +15,6 @@ namespace Microsoft.AspNetCore.Mvc.Rendering
 {
     public class HtmlHelperDisplayExtensionsTest
     {
-
-
         [Fact]
         public void DisplayHelpers_FindsModel_WhenViewDataIsNotSet()
         {
@@ -96,25 +94,25 @@ namespace Microsoft.AspNetCore.Mvc.Rendering
             viewEngine.Verify();
         }
 
-        public static TheoryData<FormatModel, string> DisplayFormatModels
+        public static TheoryData<FormatModel, string> EnumFormatModels
         {
             get
             {
                 return new TheoryData<FormatModel, string>
                 {
                     {
-                        new FormatModel{ FormatProperty = Status.Created},
+                        new FormatModel{ FormatProperty = Status.Created },
                         "Value: CreatedKey"
                     },
                     {
-                        new FormatModel { FormatProperty = Status.Done},
+                        new FormatModel { FormatProperty = Status.Done },
                         "Value: Done"
                     }
                 };
             }
         }
 
-        public static TheoryData<FormatModel, string> DisplayUnformatedModels
+        public static TheoryData<FormatModel, string> EnumUnformattedModels
         {
             get
             {
@@ -133,8 +131,8 @@ namespace Microsoft.AspNetCore.Mvc.Rendering
         }
 
         [Theory]
-        [MemberData(nameof(DisplayUnformatedModels))]
-        public void Display_UsesTemplateUnFormated(FormatModel model, string expectedResult)
+        [MemberData(nameof(EnumUnformattedModels))]
+        public void Display_UsesTemplateUnFormatted(FormatModel model, string expectedResult)
         {
             // Arrange
             var view = new Mock<IView>();
@@ -159,8 +157,8 @@ namespace Microsoft.AspNetCore.Mvc.Rendering
         }
 
         [Theory]
-        [MemberData(nameof(DisplayFormatModels))]
-        public void Display_UsesTemplateFormated(FormatModel model, string expectedResult)
+        [MemberData(nameof(EnumFormatModels))]
+        public void Display_UsesTemplateFormatted(FormatModel model, string expectedResult)
         {
             // Arrange
             var view = new Mock<IView>();

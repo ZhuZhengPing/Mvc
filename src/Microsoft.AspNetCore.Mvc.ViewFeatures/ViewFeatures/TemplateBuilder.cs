@@ -97,31 +97,33 @@ namespace Microsoft.AspNetCore.Mvc.ViewFeatures.Internal
             viewData.ModelExplorer = _modelExplorer.GetExplorerForModel(_model);
 
             var formattedModelValue = viewData.Model;
-            var modelEnum = viewData.Model as Enum;
             if (_model == null && _readOnly)
             {
                 formattedModelValue = _metadata.NullDisplayText;
             }
-            else if (viewData.ModelMetadata.IsEnum && modelEnum != null)
+            else if (viewData.ModelMetadata.IsEnum)
             {
-                var value = modelEnum.ToString("d");
-                var enumGrouped = viewData.ModelMetadata.EnumGroupedDisplayNamesAndValues;
-                Debug.Assert(enumGrouped != null);
-                foreach (var kvp in enumGrouped)
+                // Cover the case where the model is an enum and we want the string value of it
+                var modelEnum = viewData.Model as Enum;
+                if (modelEnum != null)
                 {
-                    if (kvp.Value == value)
+                    var value = modelEnum.ToString("d");
+                    var enumGrouped = viewData.ModelMetadata.EnumGroupedDisplayNamesAndValues;
+                    Debug.Assert(enumGrouped != null);
+                    foreach (var kvp in enumGrouped)
                     {
-                        // Creates a ModelExplorer with the same Metadata except that the Model is a string instead of an Enum
-                        formattedModelValue = kvp.Key.Name;
-                        break;
+                        if (kvp.Value == value)
+                        {
+                            // Creates a ModelExplorer with the same Metadata except that the Model is a string instead of an Enum
+                            formattedModelValue = kvp.Key.Name;
+                            break;
+                        }
                     }
                 }
             }
 
             var metadata = viewData.ModelMetadata;
-
             var formatString = _readOnly ? metadata.DisplayFormatString : metadata.EditFormatString;
-
             if (_model != null && !string.IsNullOrEmpty(formatString))
             {
                 formattedModelValue = string.Format(CultureInfo.CurrentCulture, formatString, formattedModelValue);
