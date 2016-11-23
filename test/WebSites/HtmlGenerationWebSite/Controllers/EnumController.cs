@@ -29,7 +29,7 @@ namespace EnumDisplay.Controllers
         Sunday
     }
 
-    public class HomeController : Controller
+    public class EnumController : Controller
     {
         public IActionResult Index()
         {

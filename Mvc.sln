@@ -125,8 +125,6 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimpleWebSite", "test\WebSi
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SecurityWebSite", "test\WebSites\SecurityWebSite\SecurityWebSite.xproj", "{D28CAC79-7004-4B69-993B-EDEB4653BFA8}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "EnumDisplay", "test\WebSites\EnumDisplay\EnumDisplay.xproj", "{E65CCD64-22CB-4883-A26A-367FDC1DD4C7}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -743,18 +741,6 @@ Global
 		{D28CAC79-7004-4B69-993B-EDEB4653BFA8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D28CAC79-7004-4B69-993B-EDEB4653BFA8}.Release|x86.ActiveCfg = Release|Any CPU
 		{D28CAC79-7004-4B69-993B-EDEB4653BFA8}.Release|x86.Build.0 = Release|Any CPU
-		{E65CCD64-22CB-4883-A26A-367FDC1DD4C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E65CCD64-22CB-4883-A26A-367FDC1DD4C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E65CCD64-22CB-4883-A26A-367FDC1DD4C7}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{E65CCD64-22CB-4883-A26A-367FDC1DD4C7}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{E65CCD64-22CB-4883-A26A-367FDC1DD4C7}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E65CCD64-22CB-4883-A26A-367FDC1DD4C7}.Debug|x86.Build.0 = Debug|Any CPU
-		{E65CCD64-22CB-4883-A26A-367FDC1DD4C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E65CCD64-22CB-4883-A26A-367FDC1DD4C7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E65CCD64-22CB-4883-A26A-367FDC1DD4C7}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{E65CCD64-22CB-4883-A26A-367FDC1DD4C7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{E65CCD64-22CB-4883-A26A-367FDC1DD4C7}.Release|x86.ActiveCfg = Release|Any CPU
-		{E65CCD64-22CB-4883-A26A-367FDC1DD4C7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -816,6 +802,5 @@ Global
 		{14ED4476-9F24-4776-8417-EA6927F6C9C9} = {DAAE4C74-D06F-4874-A166-33305D2643CE}
 		{396B40D7-AC70-49A7-B33C-ED42129FEBE3} = {16703B76-C9F7-4C75-AE6C-53D92E308E3C}
 		{D28CAC79-7004-4B69-993B-EDEB4653BFA8} = {16703B76-C9F7-4C75-AE6C-53D92E308E3C}
-		{E65CCD64-22CB-4883-A26A-367FDC1DD4C7} = {16703B76-C9F7-4C75-AE6C-53D92E308E3C}
 	EndGlobalSection
 EndGlobal

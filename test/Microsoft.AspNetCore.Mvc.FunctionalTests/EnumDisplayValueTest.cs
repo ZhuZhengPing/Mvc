@@ -7,20 +7,20 @@ using Xunit;
 
 namespace Microsoft.AspNetCore.Mvc.FunctionalTests
 {
-    public class EnumDisplayValueTest : IClassFixture<MvcTestFixture<EnumDisplay.Startup>>
+    public class EnumDisplayValueTest : IClassFixture<MvcTestFixture<HtmlGenerationWebSite.Startup>>
     {
-
-        public EnumDisplayValueTest(MvcTestFixture<EnumDisplay.Startup> fixture)
+        public EnumDisplayValueTest(MvcTestFixture<HtmlGenerationWebSite.Startup> fixture)
         {
             Client = fixture.Client;
         }
+
         public HttpClient Client { get; }
 
         [Fact]
         public async Task Home_Index_EnumValues()
         {
             // Arrange & Act
-            var response = await Client.GetStringAsync("http://localhost");
+            var response = await Client.GetStringAsync("http://localhost/Enum/Index");
 
             // Assert
             Assert.Contains("Vrijdag\r\nMonth: January", response);
