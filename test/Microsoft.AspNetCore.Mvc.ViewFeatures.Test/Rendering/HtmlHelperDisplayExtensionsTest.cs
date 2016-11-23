@@ -13,6 +13,28 @@ using Xunit;
 
 namespace Microsoft.AspNetCore.Mvc.Rendering
 {
+    public class StatusResource
+    {
+        public static string FaultedKey { get { return "Faulted from ResourceType"; } }
+    }
+
+    public enum Status : byte
+    {
+        [Display(Name = "CreatedKey")]
+        Created,
+        [Display(Name = "FaultedKey", ResourceType = typeof(StatusResource))]
+        Faulted,
+        Done
+    }
+
+    public class FormatModel
+    {
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "Value: {0}")]
+        public Status FormatProperty { get; set; }
+
+        public Status NonFormatProperty { get; set; }
+    }
+
     public class HtmlHelperDisplayExtensionsTest
     {
         [Fact]
@@ -511,14 +533,6 @@ namespace Microsoft.AspNetCore.Mvc.Rendering
             Assert.Equal("SomeField", HtmlContentUtilities.HtmlContentToString(displayResult));
         }
 
-        public class FormatModel
-        {
-            [DisplayFormat(DataFormatString = "Value: {0}")]
-            public Status FormatProperty { get; set; }
-
-            public Status NonFormatProperty { get; set; }
-        }
-
         private class SomeModel
         {
             public string SomeProperty { get; set; }
@@ -527,20 +541,6 @@ namespace Microsoft.AspNetCore.Mvc.Rendering
         private class StatusModel
         {
             public Status Status { get; set; }
-        }
-
-        public class StatusResource
-        {
-            public static string FaultedKey { get { return "Faulted from ResourceType"; } }
-        }
-
-        public enum Status : byte
-        {
-            [Display(Name = "CreatedKey")]
-            Created,
-            [Display(Name = "FaultedKey", ResourceType = typeof(StatusResource))]
-            Faulted,
-            Done
         }
     }
 }
